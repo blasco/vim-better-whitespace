@@ -427,21 +427,8 @@ command! -range=% NextTrailingWhitespace call <SID>GotoTrailingWhitespace(0, <li
 " Search for trailing white space backwards
 command! -range=% PrevTrailingWhitespace call <SID>GotoTrailingWhitespace(1, <line1>, <line2>)
 
-if !empty(g:better_whitespace_operator)
-    " Ensure we only map if no identical, user-defined mapping already exists
-    if (empty(mapcheck(g:better_whitespace_operator, 'x')))
-        " Visual mode
-        exe 'xmap <silent> '.g:better_whitespace_operator.' :StripWhitespace<CR>'
-    endif
-
-    " Ensure we only map if no identical, user-defined mapping already exists
-    if (empty(mapcheck(g:better_whitespace_operator, 'n')))
-        " Normal mode (+ space, with line count)
-        exe 'nmap <silent> '.g:better_whitespace_operator.'<space> :<C-U>exe ".,+".v:count" StripWhitespace"<CR>'
-        " Other motions
-        exe 'nmap <silent> '.g:better_whitespace_operator.'        :<C-U>set opfunc=<SID>StripWhitespaceMotion<CR>g@'
-    endif
-endif
+exe 'xmap <silent> d<space> :StripWhitespace<CR>'
+exe 'nmap <silent> d<space> :<C-U>set opfunc=<SID>StripWhitespaceMotion<CR>g@'
 
 
 " Deprecated legacy commands, set for compatiblity and to point users in the right direction.
